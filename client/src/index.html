@@ -24,5 +24,29 @@
 			</li>
 		</ul>
 	</main>
+	<style>
+		.pagination {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  margin-top: 20px;
+	}
+	
+	.pagination .arrow {
+	  cursor: pointer;
+	  margin: 0 10px;
+	}
+	
+	.pagination #pageNumber {
+	  margin: 0 10px;
+	  font-weight: bold;
+	}
+	</style>
+	<div class="pagination">
+		<span class="arrow" id="prevPage">&lt;</span>
+		<span id="pageNumber">1</span>
+		<span class="arrow" id="nextPage">&gt;</span>
+	  </div>
 </body>
+
 </html>
