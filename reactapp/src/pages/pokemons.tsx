@@ -97,6 +97,11 @@ const Pokm: React.FC<PokmProps> = ({ changePage }) => {
         ))}
       </ul>
       <div className="flex justify-center gap-2">
+      <button onClick={() => setPage(c => Math.max(1, c - 1))} disabled={page === 1} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 disabled:opacity-50 hover:bg-red-700">Prev</button>
+      <span className="flex items-center self-stretch">{page}</span>
+      <button onClick={() => setPage(c => Math.min(pageCount, c + 1))} disabled={page === pageCount} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 disabled:opacity-50 hover:bg-red-700">Next</button>
+    </div>
+      <div className="flex justify-center gap-2">
         <button onClick={() => changePage('login')} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 hover:bg-red-700">Ir a Login</button>
         <button onClick={() => changePage('signup')} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 hover:bg-red-700">Ir a Registro</button>
       </div>

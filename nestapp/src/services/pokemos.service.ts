@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 export type Pokemon = {
   id: number;
@@ -50,7 +50,10 @@ export class PokemonService {
   addPokemon(pokemon: Pokemon): Pokemon {
     const existingPokemon = this.pokemonList.find((p) => p.id === pokemon.id);
     if (existingPokemon) {
-      throw new Error('Pokemon already exists');
+      
+      //throw new Error('Pokemon already exists');
+      throw new BadRequestException('Pokemon already exists', { cause: new Error(), description: 'Pokemon already exists' })
+      
     }
     this.pokemonList.push(pokemon);
     return pokemon;

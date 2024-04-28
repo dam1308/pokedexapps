@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import LoginForm from "../pages/login.tsx";
-import SignupForm from "../pages/signup.js";
-import PokemonsPage from "../pages/pokemons.tsx";
+import LoginForm from "./pages/login.tsx";
+import SignupForm from "./pages/signup.js";
+import PokemonsPage from "./pages/pokemons.tsx";
 
 const App: React.FC = () => {
   // Estado para controlar qué página se muestra
