@@ -42,7 +42,7 @@ export class UserService {
   }
 
    async findByEmail(email: string): Promise<User | null> {
-    // Lógica para buscar un usuario por su email en la base de datos
+    
     return userServiceDB.findByEmail(email);
   }
 }
