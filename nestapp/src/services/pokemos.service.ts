@@ -51,8 +51,10 @@ export class PokemonService {
     const existingPokemon = this.pokemonList.find((p) => p.id === pokemon.id);
     if (existingPokemon) {
       
-      //throw new Error('Pokemon already exists');
-      throw new BadRequestException('Pokemon already exists', { cause: new Error(), description: 'Pokemon already exists' })
+      throw new Error('Pokemon already exists');
+      //throw new BadRequestException('Pokemon already exists', { cause: new Error(), description: 'Pokemon already exists' })
+      //throw new HttpException('Pokemon already exists', HttpStatus.BAD_REQUEST);
+      
       
     }
     this.pokemonList.push(pokemon);

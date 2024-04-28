@@ -4,17 +4,18 @@ import SignupForm from "./pages/signup.js";
 import PokemonsPage from "./pages/pokemons.tsx";
 
 const App: React.FC = () => {
-  // Estado para controlar qué página se muestra
-  const [currentPage, setCurrentPage] = useState<string>('pokemons');
+  
+  //!!!!!!!!!!!!!!!!
+  const [currentPage, setCurrentPage] = useState<string>('login'); //no te olvides de cambiarlo a login para entregar.
 
   // Función para cambiar la página
-  const changePage = (page: string) => {
+  const changePage = (page: string) => { //que dolor de cabeza
     setCurrentPage(page);
   };
 
   // Renderizar la página según el estado actual
   const renderPage = () => {
-    switch (currentPage) {
+    switch (currentPage) {//arriba pqf
       case 'login':
         return <LoginForm changePage={changePage} />;
       case 'signup':
@@ -28,7 +29,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      {/* Mostrar el contenido de la página actual */}
+      
       {renderPage()}
     </div>
   );

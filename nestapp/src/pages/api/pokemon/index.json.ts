@@ -18,11 +18,9 @@ export class PokemonController3 {
 
   @Post()
   async addPokemon(@Body() pokemon: Pokemon, @Res() res: Response) {
-    try {
+    
       const addedPokemon = await this.pokemonService.addPokemon(pokemon);
       return res.status(HttpStatus.CREATED).json(addedPokemon);
-    } catch (error) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error al agregarr Pokemon" });
-    }
+    
   }
 }

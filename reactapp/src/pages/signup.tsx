@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface LayoutProps {
   title: string;
@@ -19,6 +19,7 @@ interface SignupFormProps {
 }
 
 const SignupForm: React.FC<SignupFormProps> = ({ changePage }) => {
+ 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -41,23 +42,61 @@ const SignupForm: React.FC<SignupFormProps> = ({ changePage }) => {
         changePage('login'); 
       } else {
         
-        console.log('Error en el registro');
+        setError('Error en el registro');
       }
     } catch (error) {
-      console.log('Error de red:', error);
+      setError("Intente más tarde");
     }
+    setEmail('');
+    setPass('');
+
   };
 
+  const [email, setEmail] = useState(''); //estos se usan mas abajo para que se borren los campos despues del submit
+  const [pass, setPass] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  
+  setEmail(event.target.value);
+};
+const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  
+  setPass(event.target.value);
+};
+
   return (
-    <Layout title="registro">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input className="border px-2" type="email" id="email" name="email" required />
-        <label htmlFor="password">Password</label>
-        <input className="border px-2" type="password" id="password" name="password" required />
-        <button className="bg-blue-600 text-white px-2 py-1" type="submit">Registrarse</button>
+    <Layout title="">
+    <div className="flex flex-col items-center justify-center h-screen">
+      <form onSubmit={handleSubmit} className="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-xs">
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+          <input className="border px-2 w-full py-1"
+            type="email"
+            id="email"
+            name="email"
+            value={email} 
+            onChange={handleEmailChange} 
+            required />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+          <input className="border px-2 w-full py-1" 
+              type="password" 
+              id="password"
+              name="password"
+              value={pass} 
+             onChange={handlePassChange} 
+            required />
+        </div>
+        <button className="bg-blue-600 text-white px-4 py-2 w-full rounded-full" type="submit">Registrarse</button>
+        {error && <p className="text-red-600 mt-2">{error}</p>} {/*  */}
       </form>
-    </Layout>
+      <button className="bg-red-600 text-white px-4 py-2 rounded-full" onClick={() => changePage('login')}>
+    Ir al Login
+  </button>
+    </div>
+  </Layout>
   );
 };
 

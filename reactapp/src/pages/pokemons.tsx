@@ -17,6 +17,8 @@ const Pokm: React.FC<PokmProps> = ({ changePage }) => {
   const [count, setCount] = useState(0);
   const pageCount = Math.ceil(count / 5);
 
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     let cancelled = false;
     fetch(`${BASE_URL}/pokemon?page=${page}`)
@@ -35,28 +37,38 @@ const Pokm: React.FC<PokmProps> = ({ changePage }) => {
 
   async function addPokemon(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const form = event.currentTarget;
     const data = new FormData(form);
     const pokemon = {
       id: parseInt(data.get('id') as string),
       name: data.get('name') as string
-    };
 
-    await fetch(`${BASE_URL}/pokemon`, {
+    
+    };
+  
+    const response = await fetch(`${BASE_URL}/pokemon`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(pokemon)
     });
-
-    form.reset();
-    if (page === pageCount && list.length < 5) {
-      setList(current => [...current, pokemon]);
-    }
-    setCount(current => current + 1);
-  }
+  
+    if (!response.ok) {
+      // Si la respuesta no es exitosa, mostrar mensaje de error
+      setError('Error al agregar pokemon. Verifica que el ID no esté repetido.');
+      throw new Error('Error al agregar pokemon. Verifica que el ID no esté repetido.');
+    
+      }
+      else{
+        form.reset();
+        setError('');
+        if (page === pageCount && list.length < 5) {
+          setList(current => [...current, pokemon]);
+        }
+        setCount(current => current + 1);  
+      }    
+}
 
   async function deletePokemon(id: number) {
     await fetch(`${BASE_URL}/pokemon/${id}`, {
@@ -78,6 +90,7 @@ const Pokm: React.FC<PokmProps> = ({ changePage }) => {
         <h2 className="text-2xl text-red-700 font-bold">Agregar nuevo pokemon</h2>
         <input type="number" name="id" placeholder="ID" className="my-1 w-full p-2 border border-gray-300 rounded-lg" />
         <input type="text" name="name" placeholder="Name" className="my-1 w-full p-2 border border-gray-300 rounded-lg" />
+        {error && <p className="text-red-600 mt-2">{error}</p>} {/*  */}
         <button type="submit" className="w-full p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 hover:bg-red-700">Agregar</button>
       </form>
       <ul className="mt-4 border-4 border-red-700">
@@ -96,15 +109,16 @@ const Pokm: React.FC<PokmProps> = ({ changePage }) => {
           </li>
         ))}
       </ul>
+      <div className="flex justify-between gap-2 absolute top-0 right-0 mt-2 mr-2">
+    <button onClick={() => changePage('login')} className="p-2 bg-red-600 text-white rounded-lg font-bold uppercase duration-200 hover:bg-red-700">Exit</button>
+    
+  </div>
       <div className="flex justify-center gap-2">
       <button onClick={() => setPage(c => Math.max(1, c - 1))} disabled={page === 1} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 disabled:opacity-50 hover:bg-red-700">Prev</button>
       <span className="flex items-center self-stretch">{page}</span>
       <button onClick={() => setPage(c => Math.min(pageCount, c + 1))} disabled={page === pageCount} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 disabled:opacity-50 hover:bg-red-700">Next</button>
     </div>
-      <div className="flex justify-center gap-2">
-        <button onClick={() => changePage('login')} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 hover:bg-red-700">Ir a Login</button>
-        <button onClick={() => changePage('signup')} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 hover:bg-red-700">Ir a Registro</button>
-      </div>
+      
     </main>
   );
 };
