@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Query, Body, Res, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Post, Query, Body, Res, HttpStatus, UseGuards } from "@nestjs/common";
 import { Response } from "express";
 import { PokemonService, Pokemon } from "../../../services/pokemos.service";
+import { AuthMiddleware } from '../../api/kkpt/x';
 
 @Controller("pokemon")
 export class PokemonController3 {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Get()
+  @UseGuards(AuthMiddleware)
   async getPokemonList(@Query("page") page: number = 1, @Res() res: Response) {
     try {
       const pokemonList = await this.pokemonService.getPokemonList(page);

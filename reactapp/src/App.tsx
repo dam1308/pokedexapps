@@ -1,37 +1,20 @@
-import React, { useState } from 'react';
+
 import LoginForm from "./pages/login.tsx";
-import SignupForm from "./pages/signup.js";
+import SignupForm from "./pages/signup.tsx";
 import PokemonsPage from "./pages/pokemons.tsx";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 const App: React.FC = () => {
   
-  //!!!!!!!!!!!!!!!!
-  const [currentPage, setCurrentPage] = useState<string>('login'); //no te olvides de cambiarlo a login para entregar.
-
-  // Función para cambiar la página
-  const changePage = (page: string) => { //que dolor de cabeza
-    setCurrentPage(page);
-  };
-
-  // Renderizar la página según el estado actual
-  const renderPage = () => {
-    switch (currentPage) {//arriba pqf
-      case 'login':
-        return <LoginForm changePage={changePage} />;
-      case 'signup':
-        return <SignupForm changePage={changePage} />;
-      case 'pokemons':
-        return <PokemonsPage changePage={changePage} />;
-      default:
-        return <LoginForm changePage={changePage} />;
-    }
-  };
-
   return (
-    <div>
-      
-      {renderPage()}
-    </div>
+    <Router>
+    <Routes>
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/signup" element={<SignupForm />} />
+      <Route path="/pokemons" element={<PokemonsPage />} />
+      <Route path="/" element={<Navigate to="/login" />} />
+    </Routes>
+  </Router>
   );
 };
 

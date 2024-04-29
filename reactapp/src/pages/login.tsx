@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-
-interface LoginFormProps {
-  changePage: (page: string) => void;
-}
+import { useNavigate } from 'react-router-dom';
 
 
-const LoginForm: React.FC<LoginFormProps> = ({ changePage }) => {
 
+const LoginForm: React.FC = () => {
+  const page = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+   
     
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email') as string;
@@ -22,14 +22,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ changePage }) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
+        //credentials: 'include', //cookies?? nose
       });
 
       if (response.ok) {
         
         console.log('VAMAAAAAA');
         
-        changePage('pokemons'); // aersthf
+        page('/pokemons');// aersthf
       } else {
         //estos son para que salgan en pantalla los mensajes de error
         setError('Error al iniciar sesión. Verifica tus credenciales.');
@@ -58,6 +59,8 @@ const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   setPass(event.target.value);
 };
 
+
+
   
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -85,11 +88,10 @@ const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     <button className="bg-red-600 text-white px-4 py-2 w-full rounded-full" type="submit">Iniciar sesión</button>
     {error && <p className="text-red-600 mt-2">{error}</p>} {/* */}
   </form>
-  <button className="bg-blue-600 text-white px-4 py-2 rounded-full" onClick={() => changePage('signup')}>
+  <button className="bg-blue-600 text-white px-4 py-2 rounded-full" onClick={() => page('/signup')}>
     Registrarse
   </button>
 </div>
-
     
   );
 };

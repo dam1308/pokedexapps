@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import { useNavigate } from 'react-router-dom';
+
+
 type Pokemon = {
   id: number;
   name: string;
@@ -7,11 +10,10 @@ type Pokemon = {
 
 const BASE_URL = 'http://localhost:3000';
 
-interface PokmProps {
-  changePage: (page: string) => void;
-}
 
-const Pokm: React.FC<PokmProps> = ({ changePage }) => {
+const Pokm: React.FC = () => {
+  const pageP = useNavigate();
+
   const [list, setList] = useState<Pokemon[]>([]);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
@@ -55,7 +57,7 @@ const Pokm: React.FC<PokmProps> = ({ changePage }) => {
     });
   
     if (!response.ok) {
-      // Si la respuesta no es exitosa, mostrar mensaje de error
+      
       setError('Error al agregar pokemon. Verifica que el ID no esté repetido.');
       throw new Error('Error al agregar pokemon. Verifica que el ID no esté repetido.');
     
@@ -110,7 +112,7 @@ const Pokm: React.FC<PokmProps> = ({ changePage }) => {
         ))}
       </ul>
       <div className="flex justify-between gap-2 absolute top-0 right-0 mt-2 mr-2">
-    <button onClick={() => changePage('login')} className="p-2 bg-red-600 text-white rounded-lg font-bold uppercase duration-200 hover:bg-red-700">Exit</button>
+    <button onClick={() => pageP('/login')} className="p-2 bg-red-600 text-white rounded-lg font-bold uppercase duration-200 hover:bg-red-700">Exit</button>
     
   </div>
       <div className="flex justify-center gap-2">

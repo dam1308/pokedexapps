@@ -2,6 +2,7 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from '../../../services/users';
 import { signJWT } from '../../../helpers/jwt';
+
 const userService = new UserService(); //lo mismo que en users.ts de abajo
 @Controller('login')
 export class LoginController {
@@ -16,6 +17,7 @@ export class LoginController {
       const jwt = signJWT(user);
       
       // funciona sin la del redirectwc. ?? VEr DPS
+      //return redirectWithCookies('/admin', [{ name: 'user', value: jwt, maxAge: 60 * 60 * 24 }])
       res.cookie('user', jwt, { maxAge: 60 * 60 * 24, httpOnly: true });
       
       // rsp.
@@ -27,3 +29,4 @@ export class LoginController {
     }
   }
 }
+

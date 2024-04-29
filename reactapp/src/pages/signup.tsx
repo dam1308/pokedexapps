@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 interface LayoutProps {
   title: string;
@@ -14,11 +17,11 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   );
 };
 
-interface SignupFormProps {
-  changePage: (page: string) => void;
-}
 
-const SignupForm: React.FC<SignupFormProps> = ({ changePage }) => {
+
+const SignupForm: React.FC = () => {
+
+  const page = useNavigate();
  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,7 +42,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ changePage }) => {
       if (response.ok) {
         
         console.log('Registro exitoso');
-        changePage('login'); 
+        page('/login'); 
       } else {
         
         setError('Error en el registro');
@@ -92,7 +95,7 @@ const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         <button className="bg-blue-600 text-white px-4 py-2 w-full rounded-full" type="submit">Registrarse</button>
         {error && <p className="text-red-600 mt-2">{error}</p>} {/*  */}
       </form>
-      <button className="bg-red-600 text-white px-4 py-2 rounded-full" onClick={() => changePage('login')}>
+      <button className="bg-red-600 text-white px-4 py-2 rounded-full" onClick={() => page('/login')}>
     Ir al Login
   </button>
     </div>
