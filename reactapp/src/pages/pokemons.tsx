@@ -23,14 +23,14 @@ const Pokm: React.FC = () => {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`${BASE_URL}/pokemon?page=${page}`)
-      .then((res) => res.json())
+    fetch(`${BASE_URL}/pokemon?page=${page}`, { credentials: 'include' })
+      .then((res) => res.ok ? res.json() : Promise.reject(res))
       .then((data) => {
         if (!cancelled) {
           setList(data.list);
           setCount(data.count);
         }
-      });
+      }).catch((res: Response) => res.status === 401 ? pageP('/login') : null)
 
     return () => {
       cancelled = true;

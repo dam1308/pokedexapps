@@ -5,16 +5,18 @@ import { Request, Response, NextFunction } from 'express';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
+    console.log('Middleware');
+    
     // Verificar si el usuario está autenticado con la cookie de sesión válida
-    const jwt = req.cookies['user']; 
-        console.log('jwt', jwt);
+    const jwt = req.cookies['user'];
+    console.log('jwt', jwt);
 
-        console.log('HOLAAAAA');
+    console.log('HOLAAAAA');
     if (jwt) {
       next();
     } else {
-        res.redirect('/login');
-      
+      return res.status(401).json({ success: false, message: 'ups' });
+
     }
   }
 }
