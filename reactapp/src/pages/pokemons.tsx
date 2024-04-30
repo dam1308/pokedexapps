@@ -53,7 +53,8 @@ const Pokm: React.FC = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(pokemon)
+      body: JSON.stringify(pokemon),
+      credentials: 'include',
     });
   
     if (!response.ok) {
@@ -74,7 +75,8 @@ const Pokm: React.FC = () => {
 
   async function deletePokemon(id: number) {
     await fetch(`${BASE_URL}/pokemon/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      credentials: 'include',
     });
 
     setList(current => current.filter(pokemon => pokemon.id !== id));

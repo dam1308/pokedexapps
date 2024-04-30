@@ -16,11 +16,11 @@ export class LoginController {
       const user = await userService.authenticateUser({ email, password });
       const jwt = signJWT(user);
 
-      console.log('jwt', jwt);
+      //console.log('jwt', jwt);
       
       // funciona sin la del redirectwc. ?? VEr DPS
       //return redirectWithCookies('/admin', [{ name: 'user', value: jwt, maxAge: 60 * 60 * 24 }])
-      res.cookie("user", jwt);
+      res.cookie("user", jwt, { maxAge: 60 * 60 * 24 });
       // res.setHeader('Set-Cookie', `user=${jwt};  Max-Age=${60 * 60 * 24}; Path=/`);
       
       // rsp.
