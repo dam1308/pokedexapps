@@ -8,7 +8,7 @@ export class PokemonController3 {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Get()
-  @UseGuards(AuthMiddleware)
+  //@UseGuards(AuthMiddleware)
   async getPokemonList(@Query("page") page: number = 1, @Res() res: Response) {
     try {
       const pokemonList = await this.pokemonService.getPokemonList(page);

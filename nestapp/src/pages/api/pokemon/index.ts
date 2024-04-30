@@ -31,7 +31,7 @@ export class PokemonController4 {
     try {
       const pokemon = { id, name };
       await this.pokemonService.addPokemon(pokemon);
-      return res.redirect("/");
+      return res.redirect("/pokemons");
     } catch (error) {
       return this.handleError(res, error.message);
     }
@@ -42,6 +42,6 @@ export class PokemonController4 {
     if (body) {
       res.cookie("body", JSON.stringify(body), { sameSite: "strict", path: "/", maxAge: 1000 });
     }
-    return res.redirect("/");
+    return res.redirect("/pokemons");
   }
 }
