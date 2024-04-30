@@ -23,6 +23,7 @@ const LoginForm: React.FC = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, password }),
+        credentials: 'include',
         //credentials: 'include', //cookies?? nose
       });
 

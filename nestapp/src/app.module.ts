@@ -15,6 +15,6 @@ import { AuthMiddleware } from './pages/api/kkpt/x';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     console.log("anda?");
-    consumer.apply(AuthMiddleware).forRoutes('./pages/api/pokemon/index.json');
+    consumer.apply(AuthMiddleware).forRoutes('/pokemon');
   }
 }
