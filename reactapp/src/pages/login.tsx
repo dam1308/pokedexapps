@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './Auth';
 
 
 
 const LoginForm: React.FC = () => {
   const page = useNavigate();
+  const { login } = useAuth(); //por esto no funcionaba
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,10 +30,9 @@ const LoginForm: React.FC = () => {
       });
 
       if (response.ok) {
-        //intente usar las funciones pero me tiran error así q lo puse directo
-        localStorage.setItem('isAuthenticated', 'true');
-        console.log('VAMAAAAAA');
         
+        login(); // me había olvidado de llamarla arriba
+        console.log('VAMAAAAAA');
         page('/pokemons');// aersthf
       } else {
         //estos son para que salgan en pantalla los mensajes de error

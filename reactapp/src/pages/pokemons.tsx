@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from 'react-router-dom';
+import useAuth from "./Auth";
 
 
 type Pokemon = {
@@ -13,6 +14,7 @@ const BASE_URL = 'http://localhost:3000';
 
 const Pokm: React.FC = () => {
   const pageP = useNavigate();
+  const { logout } = useAuth();
 
   const [list, setList] = useState<Pokemon[]>([]);
   const [page, setPage] = useState(1);
@@ -114,7 +116,7 @@ const Pokm: React.FC = () => {
         ))}
       </ul>
       <div className="flex justify-between gap-2 absolute top-0 right-0 mt-2 mr-2">
-        <button onClick={() => { pageP('/login'); localStorage.setItem('isAuthenticated', 'false'); }} className="p-2 bg-red-600 text-white rounded-lg font-bold uppercase duration-200 hover:bg-red-700">Exit</button>
+        <button onClick={() => { pageP('/login'); logout(); }} className="p-2 bg-red-600 text-white rounded-lg font-bold uppercase duration-200 hover:bg-red-700">Exit</button>
       </div>
       <div className="flex justify-center gap-2">
       <button onClick={() => setPage(c => Math.max(1, c - 1))} disabled={page === 1} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 disabled:opacity-50 hover:bg-red-700">Prev</button>
