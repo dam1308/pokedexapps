@@ -11,7 +11,7 @@ export class PokemonController3 {
   //@UseGuards(AuthMiddleware)
   async getPokemonList(@Query("page") page: number = 1, @Res() res: Response) {
     try {
-      const pokemonList = await this.pokemonService.getPokemonList(page);
+      const pokemonList = this.pokemonService.getPokemonList(page);
       return res.status(HttpStatus.OK).json(pokemonList);
     } catch (error) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error fetching Pokemon" });
@@ -20,9 +20,11 @@ export class PokemonController3 {
 
   @Post()
   async addPokemon(@Body() pokemon: Pokemon, @Res() res: Response) {
-    
-      const addedPokemon = await this.pokemonService.addPokemon(pokemon);
+    try {
+      const addedPokemon = this.pokemonService.addPokemon(pokemon);
       return res.status(HttpStatus.CREATED).json(addedPokemon);
-    
+    } catch (error) {
+      return res.status(500).json({ message: "Error al agregar Pokemon" });
+    }
   }
 }

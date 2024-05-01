@@ -1,11 +1,21 @@
 import jwt from "jsonwebtoken"
+import { Injectable } from '@nestjs/common';
 
-const secret = 'mysecret'
+@Injectable()
+export class JwtService {
+  private readonly secret: string = 'mysecret';
 
-export const signJWT = (payload: any) => {
-  return jwt.sign(payload, secret)
+  signJWT(payload: any): string {
+    return jwt.sign(payload, this.secret);
 }
 
-export const verifyJWT = (token: string) => {
-  return jwt.verify(token, secret)
+
+verifyJWT(token: string): any {
+  try {
+    return jwt.verify(token, this.secret);
+  } catch (error) {
+    console.error('Error al verf JWT:', error.message);
+    return null;
+  }
+}
 }

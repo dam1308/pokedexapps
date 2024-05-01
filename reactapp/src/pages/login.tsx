@@ -28,7 +28,8 @@ const LoginForm: React.FC = () => {
       });
 
       if (response.ok) {
-        
+        //intente usar las funciones pero me tiran error así q lo puse directo
+        localStorage.setItem('isAuthenticated', 'true');
         console.log('VAMAAAAAA');
         
         page('/pokemons');// aersthf

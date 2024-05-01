@@ -65,7 +65,7 @@ const Pokm: React.FC = () => {
       }
       else{
         form.reset();
-        setError('');
+        setError('pokemon agregado correctamente, p p rojo, despues veo como cambiarle la clase.');
         if (page === pageCount && list.length < 5) {
           setList(current => [...current, pokemon]);
         }
@@ -114,9 +114,8 @@ const Pokm: React.FC = () => {
         ))}
       </ul>
       <div className="flex justify-between gap-2 absolute top-0 right-0 mt-2 mr-2">
-    <button onClick={() => pageP('/login')} className="p-2 bg-red-600 text-white rounded-lg font-bold uppercase duration-200 hover:bg-red-700">Exit</button>
-    
-  </div>
+        <button onClick={() => { pageP('/login'); localStorage.setItem('isAuthenticated', 'false'); }} className="p-2 bg-red-600 text-white rounded-lg font-bold uppercase duration-200 hover:bg-red-700">Exit</button>
+      </div>
       <div className="flex justify-center gap-2">
       <button onClick={() => setPage(c => Math.max(1, c - 1))} disabled={page === 1} className="p-2 bg-red-600 text-white rounded-lg mt-2 font-bold uppercase duration-200 disabled:opacity-50 hover:bg-red-700">Prev</button>
       <span className="flex items-center self-stretch">{page}</span>

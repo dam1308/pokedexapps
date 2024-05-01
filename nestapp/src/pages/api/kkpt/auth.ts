@@ -1,8 +1,8 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from '../../../services/users';
-import { signJWT } from '../../../helpers/jwt';
-
+import { JwtService } from '../../../helpers/jwt';
+const jwtService = new JwtService();
 const userService = new UserService(); //lo mismo que en users.ts de abajo
 @Controller('login')
 export class LoginController {
@@ -14,7 +14,7 @@ export class LoginController {
   ) {
     try {
       const user = await userService.authenticateUser({ email, password });
-      const jwt = signJWT(user);
+      const jwt = jwtService.signJWT(user);
 
       //console.log('jwt', jwt);
       

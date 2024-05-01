@@ -10,7 +10,7 @@ export class PokemonController1 {
   async deletePokemon(@Param("id") id: string, @Res() res: Response) {
     try {
       const pokemonId = parseInt(id, 10);
-      const deletedPokemon = await this.pokemonService.deletePokemon(pokemonId);
+      const deletedPokemon = this.pokemonService.deletePokemon(pokemonId);
       return res.status(200).json(deletedPokemon);
     } catch (error) {
       return res.status(500).json({ message: "Error al eliminar Pokemon" });

@@ -38,9 +38,9 @@ export class PokemonController4 {
   }
 
   private handleError(res: Response, error: string, body?: Record<string, any>) {
-    res.cookie("error", error, { sameSite: "strict", path: "/", maxAge: 1000 });
+    res.cookie("error", error, { path: "/", maxAge: 1000 });
     if (body) {
-      res.cookie("body", JSON.stringify(body), { sameSite: "strict", path: "/", maxAge: 1000 });
+      res.cookie("body", JSON.stringify(body), { path: "/", maxAge: 1000 });
     }
     return res.redirect("/pokemons");
   }

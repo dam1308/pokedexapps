@@ -1,5 +1,5 @@
 ///CONTROLADOOR
-import { Body, ConsoleLogger, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from "../../../services/users"; 
 
